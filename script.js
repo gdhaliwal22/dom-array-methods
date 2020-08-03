@@ -8,8 +8,6 @@ const calculateWealthBtn = document.getElementById("calculate-wealth");
 let data = [];
 
 getRandomUser();
-getRandomUser();
-getRandomUser();
 
 // Fetch random user and add money
 async function getRandomUser() {
@@ -22,14 +20,20 @@ async function getRandomUser() {
     name: `${user.name.first} ${user.name.last}`,
     money: Math.floor(Math.random() * 1000000),
   };
-
   addData(newUser);
+}
+
+// Double everyones money
+function doubleMoney() {
+  data = data.map((user) => {
+    return { ...user, money: user.money * 2 };
+  });
+  updateDOM();
 }
 
 // Add new obj to data arr
 function addData(obj) {
   data.push(obj);
-
   updateDOM();
 }
 
@@ -39,7 +43,6 @@ function updateDOM(providedData = data) {
   // Clear main div
   main.innerHTML = "<h2><strong>Person</strong> Wealth</h2>";
 
-  //
   providedData.forEach((item) => {
     const element = document.createElement("div");
     element.classList.add("person");
@@ -57,3 +60,4 @@ function formatMoney(number) {
 
 // Event listeners
 addUserBtn.addEventListener("click", getRandomUser);
+doubleBtn.addEventListener("click", doubleMoney);

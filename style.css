@@ -27,6 +27,7 @@ aside {
 }
 
 button {
+  cursor: pointer;
   background-color: #fff;
   border: solid 1px #111;
   border-radius: 5px;
