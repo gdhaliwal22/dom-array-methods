@@ -1,12 +1,17 @@
 const main = document.getElementById("main");
 const addUserBtn = document.getElementById("add-user");
 const doubleBtn = document.getElementById("double");
-const showMillionaires = document.getElementById("show-millionaires");
-const sort = document.getElementById("sort");
+const showMillionairesBtn = document.getElementById("show-millionaires");
+const sortBtn = document.getElementById("sort");
 const calculateWealthBtn = document.getElementById("calculate-wealth");
 
-let data = [];
+// Event listeners
+addUserBtn.addEventListener("click", getRandomUser);
+doubleBtn.addEventListener("click", doubleMoney);
+sortBtn.addEventListener("click", sortByRichest);
+showMillionairesBtn.addEventListener("click", showMillionaires);
 
+let data = [];
 getRandomUser();
 
 // Fetch random user and add money
@@ -27,6 +32,20 @@ async function getRandomUser() {
 function doubleMoney() {
   data = data.map((user) => {
     return { ...user, money: user.money * 2 };
+  });
+  updateDOM();
+}
+
+// Sort users by richest
+function sortByRichest() {
+  data.sort((a, b) => b.money - a.money);
+  updateDOM();
+}
+
+// Filter to show only millionaires
+function showMillionaires() {
+  data = data.filter((item) => {
+    return item.money > 1000000;
   });
   updateDOM();
 }
@@ -58,6 +77,4 @@ function formatMoney(number) {
   return "$ " + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 }
 
-// Event listeners
-addUserBtn.addEventListener("click", getRandomUser);
-doubleBtn.addEventListener("click", doubleMoney);
+// Sort array
